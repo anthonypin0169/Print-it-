@@ -129,6 +129,7 @@ header {
     display: flex;
     justify-content: space-between;
 	padding: 0 15px;
+	cursor: pointer;
 }
 #banner .arrow_left {
 	left: 10px;

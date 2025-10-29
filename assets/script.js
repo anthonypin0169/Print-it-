@@ -17,39 +17,58 @@ const slides = [
 	}
 ]
 
-//Creation des variables des fleches
+//Variables
+
+const bannerImg = document.querySelector('.banner-img')
+const bannerTxt = document.querySelectorAll('#banner p')
 const arrow_left = document.querySelector('.arrow_left')
-console.log(arrow_left)
 const arrow_right = document.querySelector('.arrow_right')
-console.log(arrow_right)
-
-//Ajout de l'évenement au click
-let i = 0
-
-arrow_left.addEventListener('click', () => {
-		i--
-		console.log(i)
-	
-})
-
-arrow_right.addEventListener('click', () => {
-		i++
-		console.log(i)
-
-})
-
-//Creation des bullets points
 let dots = document.querySelector('.dots')
 
-let compteur = 0
+//Creation des bullets points
+
+let compteur = 0 //Compteur de la boucle
 
 while(compteur < slides.length) {
 
 	let bulletPoint = document.createElement('div')
 	bulletPoint.classList.add('dot')
 	dots.appendChild(bulletPoint)
-
 	compteur++
-	console.log(compteur)
 
 }
+
+const bulletPoint = document.querySelectorAll('.dot')
+
+let i = 0
+
+//Fonction qui gere le carousel
+function uptdateCarousel(){
+
+//Changer l'image
+	bannerImg.src = `./assets/images/slideshow/${slides[i].image}`
+//Changer le texte
+	bannerTxt.innerHTML = slides[i].tagLine
+//Selectionner un point
+	bulletPoint.forEach((dot,index) => {
+		dot.classList.toggle('dot_selected', index === i)
+	});
+}
+
+//Ajout de l'évenement au click
+
+arrow_left.addEventListener('click', () => {
+		i=(i- 1 + slides.length) % slides.length // % slides.length pour boucler
+		uptdateCarousel()
+		console.log(i)
+
+})
+
+arrow_right.addEventListener('click', () => {
+		i=(i + 1) % slides.length
+		uptdateCarousel()
+		console.log(i)
+
+})
+
+uptdateCarousel()
