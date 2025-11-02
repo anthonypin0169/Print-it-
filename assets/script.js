@@ -17,17 +17,19 @@ const slides = [
 	}
 ]
 
-//Variables
+//On recupere les variables
 
 const bannerImg = document.querySelector('.banner-img')
-const bannerTxt = document.querySelectorAll('#banner p')
+const bannerTxt = document.querySelector('#banner p')
 const arrow_left = document.querySelector('.arrow_left')
 const arrow_right = document.querySelector('.arrow_right')
 let dots = document.querySelector('.dots')
 
+
+
 //Creation des bullets points
 
-let compteur = 0 //Compteur de la boucle
+let compteur = 0 //Compteur de la boucle bullets points
 
 while(compteur < slides.length) {
 
@@ -37,23 +39,27 @@ while(compteur < slides.length) {
 	compteur++
 
 }
-
+//Ajout dans le DOM des bullet point creer dans la boucle
 const bulletPoint = document.querySelectorAll('.dot')
 
-let i = 0
 
 //Fonction qui gere le carousel
+
+let i = 0 //Variable qui sert d'index
+
 function uptdateCarousel(){
 
-//Changer l'image
+//Changer l'image en liant la variable d'index au tableau
 	bannerImg.src = `./assets/images/slideshow/${slides[i].image}`
-//Changer le texte
+//Idem pour changer le texte
 	bannerTxt.innerHTML = slides[i].tagLine
 //Selectionner un point
-	bulletPoint.forEach((dot,index) => {
+	bulletPoint.forEach((dot,index) => { // Les 2 parametres correspondent a 1: l'objet(un point) , 2: la valeur(lequel).
 		dot.classList.toggle('dot_selected', index === i)
-	});
+	})
 }
+
+
 
 //Ajout de l'évenement au click
 
@@ -63,12 +69,10 @@ arrow_left.addEventListener('click', () => {
 		console.log(i)
 
 })
-
 arrow_right.addEventListener('click', () => {
 		i=(i + 1) % slides.length
 		uptdateCarousel()
 		console.log(i)
 
 })
-
 uptdateCarousel()
